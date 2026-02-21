@@ -21,19 +21,21 @@ export const useChat = () => {
       type: ChatActionType.SET_TYPING,
       payload: true,
     });
-    //TODO add timeout simular resposta ou api
-    dispatch({
-      type: ChatActionType.ADD_BOT_MESSAGE,
-      payload: {
-        text: "Claro aqui esta algumas sugestões...",
-        products: [],
-      },
-    });
+    
+    setTimeout(()=>{
+      dispatch({
+        type: ChatActionType.ADD_BOT_MESSAGE,
+        payload: {
+          text: "Claro aqui esta algumas sugestões...",
+          products: [],
+        },
+      });  
+      dispatch({
+        type: ChatActionType.SET_TYPING,
+        payload: false,
+      });
+    },1000)
 
-    dispatch({
-      type: ChatActionType.SET_TYPING,
-      payload: false,
-    });
   }, []);
 
   const resetChat = useCallback(() => {
@@ -43,7 +45,7 @@ export const useChat = () => {
   }, []);
 
   const data = {
-    message: state.messages,
+    messages: state.messages,
     isTyping: state.isTyping,
     sendMessage,
     resetChat,
