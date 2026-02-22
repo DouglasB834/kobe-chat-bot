@@ -1,9 +1,10 @@
 "use client";
 
 import type { Product } from "@/types/message";
-import { Card, CardContent } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { isLancamento } from "@/lib/date-utils";
 
 const STAR_SIZE = 14;
 
@@ -68,23 +69,29 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const hasDiscount = product.originalPrice != null && product.originalPrice > product.price;
 
+  const showLancamento = product.postedAt != null && isLancamento(product.postedAt,7);
+
   return (
-    <Card
-      size="sm"
-      className="w-full max-w-[168px] border border-white/10 bg-card-product hover:bg-zinc-800/500 transition-colors   py-4! gap-2!"
+    <div
+      className="flex sm:flex-col bg-transparent w-full h-auto  max-w-[304px] sm:max-w-[168px] border rounded-xl border-white/10  md:bg-card-product md:hover:bg-zinc-800/500 p-3 gap-2"
     >
-      <div className="relative mx-auto w-36 overflow-hidden rounded-t-md bg-zinc-800">
+      <div className="relative mx-auto  w-36  min-w-[144px] min-h-[144px] overflow-hidden rounded-t-md bg-zinc-800">
+        {
+          showLancamento && (
           <Badge className="absolute top-0 left-0 rounded-none w-full bg-bubble-assistant uppercase font-medium text-secondary-foreground text-xs">
             Lançamento
           </Badge>
+
+          )
+        }
         <Image
           src={product?.imageUrl ?? "/productImage.png"}
           alt={product?.name}
           title={product?.name}
           width={144}
           height={144}
-          sizes="100vw"
-          className="size-full object-cover rounded-b-md "
+          sizes="144px"
+          className="size-full object-cover rounded-b-md"
         />
         <div className="absolute bottom-0 right-0 z-10 bg-bubble-assistant p-1 rounded-sm">
           <Image
@@ -98,9 +105,11 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
       </div>
     
-      <CardContent className="max-w-36 text-start  space-y-2 pb-0! " aria-label="product name">
-        <p className="font-bold text-secondary text-sm">
-          {product?.name}
+      <CardContent className="text-start px-0! space-y-2 pb-0! " aria-label="product name">
+        <p className="font-bold pb-3 text-secondary text-sm" title={product?.name}>
+          {product?.name && product.name.length > 38
+            ? product.name.slice(0, 50) + "..."
+            : product?.name}
         </p>
         <div className=" space-y-0.5">
           {hasDiscount && (
@@ -121,6 +130,6 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
       </CardContent>
-    </Card>
+    </div>
   );
 }

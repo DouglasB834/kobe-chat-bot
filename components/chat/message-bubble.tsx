@@ -30,7 +30,7 @@ export const MessageBubble = React.memo(function MessageBubble({
         <p className="leading-relaxed whitespace-pre-wrap">{message.text}</p>
 
         {message.products && message.products.length > 0 && (
-          <div className="mt-3 md:flex w-full flex-wrap gap-2 ">
+          <div className="mt-3 flex w-full flex-wrap gap-2 space-y-1 ">
             {message.products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

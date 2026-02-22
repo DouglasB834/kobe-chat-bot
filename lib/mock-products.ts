@@ -109,7 +109,7 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: "10",
-    name: "Jaqueta Jeans Moderna",
+    name: "Anel Solitário Ouro 18k com 20pts de Diamante Anne",
     description:
       "Jaqueta jeans com corte ajustado, bolsos funcionais e acabamento premium. Perfeita para meia-estação.",
     originalPrice: 399.0,
