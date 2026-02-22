@@ -45,6 +45,8 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --color-bubble-assistant: #B9D8E1;
+  --color-card-product: rgb(31,31,31)
 }
 
 :root {
@@ -115,6 +117,8 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
 }
+
+
 
 @layer base {
   * {
