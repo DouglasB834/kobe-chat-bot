@@ -30,7 +30,6 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (isLoading) return;
-
     onSend(values.message);
     form.reset();
   }

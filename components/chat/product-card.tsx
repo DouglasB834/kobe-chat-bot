@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import type { Product } from "@/types/message";
@@ -73,7 +74,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div
-      className="flex sm:flex-col bg-transparent w-full h-auto  max-w-[304px] sm:max-w-[168px] border rounded-xl border-white/10  md:bg-card-product md:hover:bg-zinc-800/500 p-3 gap-2"
+      className="flex sm:flex-col bg-transparent w-full h-auto  max-w-[304px] sm:max-w-[168px]   p-3 gap-2"
     >
       <div className="relative mx-auto  w-36  min-w-[144px] min-h-[144px] overflow-hidden rounded-t-md bg-zinc-800">
         {
@@ -81,10 +82,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <Badge className="absolute top-0 left-0 rounded-none w-full bg-bubble-assistant uppercase font-medium text-secondary-foreground text-xs">
             Lançamento
           </Badge>
-
           )
         }
-        <Image
+        <img
           src={product?.imageUrl ?? "/productImage.png"}
           alt={product?.name}
           title={product?.name}

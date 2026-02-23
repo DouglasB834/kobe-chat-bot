@@ -2,13 +2,13 @@
 
 import { chatReducer, initialChatState } from "@/lib/chat-reducer";
 import { ChatActionType } from "@/types/chat-state";
-import { searchProducts, getAllProducts, isShowAllProductsIntent } from "@/lib/mock-products";
+import { chatAIProvider } from "@/lib/chat-ai";
 import { useReducer, useCallback } from "react";
 
 export const useChat = () => {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
 
-  const sendMessage = useCallback((text: string) => {
+  const sendMessage = useCallback(async (text: string) => {
     const trimmed = text.trim();
 
     if (!trimmed) return;
@@ -23,29 +23,32 @@ export const useChat = () => {
       payload: true,
     });
 
-    setTimeout(() => {
-      const showAll = isShowAllProductsIntent(trimmed);
-      const products = showAll ? getAllProducts() : searchProducts(trimmed);
-      const text =
-        products.length > 0
-          ? showAll
-            ? "Aqui estão todos os nossos produtos!"
-            : "Claro, aqui estão algumas sugestões..."
-          : "Não encontrei produtos com esse termo. Que tal dar uma olhada em tudo? (digite sim ou 1)";
-
+    try {
+      const response = await chatAIProvider.sendMessage({
+        userMessage: trimmed,
+        history: state.messages.map((m) => ({ role: m.role, text: m.text })),
+      });
       dispatch({
         type: ChatActionType.ADD_BOT_MESSAGE,
         payload: {
-          text,
-          products: products.length > 0 ? products : undefined,
+          text: response.text,
+          products: response.products,
         },
       });
+    } catch {
+      dispatch({
+        type: ChatActionType.ADD_BOT_MESSAGE,
+        payload: {
+          text: "Desculpe, ocorreu um erro. Tente novamente.",
+        },
+      });
+    } finally {
       dispatch({
         type: ChatActionType.SET_TYPING,
         payload: false,
       });
-    }, 2000);
-  }, []);
+    }
+  }, [state.messages]);
 
   const resetChat = useCallback(() => {
     dispatch({

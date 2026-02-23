@@ -1,4 +1,4 @@
-import { ChatContainer } from "@/components/chat/ChatContainer";
+import { ChatContainer } from "@/components/chat/chat-container";
 import { MessageBubble } from "@/components/chat/message-bubble";
 import { Message } from "@/types/message";
 import { div } from "motion/react-client";
