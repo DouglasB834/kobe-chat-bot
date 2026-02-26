@@ -6,14 +6,12 @@ import { motion } from "motion/react";
 import { ProductCard } from "./product-card";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 
-
 interface MessageBubbleProps {
   message: Message;
 }
 
-export const MessageBubble = React.memo(function MessageBubble({
-  message,
-}: MessageBubbleProps) {
+export const MessageBubble = React.memo(function MessageBubble({message }: MessageBubbleProps) {
+
   const isUser = message.role === "user";
 
   return (

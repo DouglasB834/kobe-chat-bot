@@ -1,8 +1,5 @@
 import { ChatContainer } from "@/components/chat/chat-container";
-import { MessageBubble } from "@/components/chat/message-bubble";
 import { Message } from "@/types/message";
-import { div } from "motion/react-client";
-// import { ComponentExample } from "@/components/component-example";
 
 const fakeMessages: Message[] = [
   {
@@ -21,7 +18,7 @@ const fakeMessages: Message[] = [
 
 export default function Page() {
   return (
-    <div className="h-screen w-full flex items-center ">
+    <div className="h-screen w-full flex items-center sm:px-2">
         <ChatContainer/>
     </div>
   );

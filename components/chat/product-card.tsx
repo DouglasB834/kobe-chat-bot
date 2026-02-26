@@ -15,7 +15,11 @@ function StarRating({ value }: { value: number }) {
   const hasHalf = clamped % 1 >= 0.5;
 
   return (
-    <div className="flex items-center gap-0.5" role="img" aria-label={`Avaliação: ${value.toFixed(1)} de 5 estrelas`}>
+    <div
+      className="flex items-center gap-0.5"
+      role="img"
+      aria-label={`Avaliação: ${value.toFixed(1)} de 5 estrelas`}
+    >
       {[1, 2, 3, 4, 5].map((i) => {
         if (i <= full) {
           return (
@@ -68,22 +72,20 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const hasDiscount = product.originalPrice != null && product.originalPrice > product.price;
+  const hasDiscount =
+    product.originalPrice != null && product.originalPrice > product.price;
 
-  const showLancamento = product.postedAt != null && isLancamento(product.postedAt,7);
+  const showLancamento =
+    product.postedAt != null && isLancamento(product.postedAt, 7);
 
   return (
-    <div
-      className="flex sm:flex-col bg-transparent w-full h-auto  max-w-[304px] sm:max-w-[168px]   p-3 gap-2"
-    >
+    <div className="flexsm:flex-col bg-transparent w-full h-auto  max-w-[304px] sm:max-w-[168px] p-3 gap-2">
       <div className="relative mx-auto  w-36  min-w-[144px] min-h-[144px] overflow-hidden rounded-t-md bg-zinc-800">
-        {
-          showLancamento && (
+        {showLancamento && (
           <Badge className="absolute top-0 left-0 rounded-none w-full bg-bubble-assistant uppercase font-medium text-secondary-foreground text-xs">
             Lançamento
           </Badge>
-          )
-        }
+        )}
         <img
           src={product?.imageUrl ?? "/productImage.png"}
           alt={product?.name}
@@ -104,20 +106,32 @@ export function ProductCard({ product }: ProductCardProps) {
           />
         </div>
       </div>
-    
-      <CardContent className="text-start px-0! space-y-2 pb-0! " aria-label="product name">
-        <p className="font-bold pb-3 text-secondary text-sm" title={product?.name}>
+
+      <CardContent
+        className="text-start px-0! space-y-2 pb-0! "
+        aria-label="product name"
+      >
+        <p
+          className="font-bold pb-3 text-secondary text-sm"
+          title={product?.name}
+        >
           {product?.name && product.name.length > 38
             ? product.name.slice(0, 50) + "..."
             : product?.name}
         </p>
         <div className=" space-y-0.5">
           {hasDiscount && (
-            <p className="text-xs text-secondary  line-through" aria-label="orginal price">
+            <p
+              className="text-xs text-secondary line-through"
+              aria-label="orginal price"
+            >
               {formatPrice(product.originalPrice!)}
             </p>
           )}
-          <p className="text-sm font-bold text-secondary" aria-label="off price">
+          <p
+            className="text-sm font-bold text-secondary"
+            aria-label="off price"
+          >
             {formatPrice(product?.price)}
           </p>
         </div>

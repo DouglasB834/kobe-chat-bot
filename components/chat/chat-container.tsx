@@ -20,17 +20,17 @@ export const ChatContainer = () => {
   }, [messages, isTyping]);
 
   return (
-    <div className="rounded-2xl flex justify-center w-full max-w-6xl mx-auto flex-col h-[700px] bg-black text-white px-2">
+    <div className="sm:rounded-2xl flex justify-center w-full max-w-6xl mx-auto flex-col h-[700px] bg-black text-white px-2">
       <Button
         variant={"ghost"}
         size={"icon"}
-        className="flex mt-2 self-end  cursor-pointer hover:bg-bubble-assistant/20"
+        className="flex mt-5 sm:mt-2 self-end  cursor-pointer hover:bg-bubble-assistant/20"
         onClick={resetChat}
       >
         <X size={24} className="text-bubble-assistant" />
       </Button>
       <ScrollArea className="flex-1 min-h-0">
-        <div className="px-6 py-6 space-y-6">
+        <div className="px-4 py-4 space-y-6">
           <AnimatePresence initial={false}>
             {messages.map((message) => (
               <MessageBubble key={message.id} message={message} />
